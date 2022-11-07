@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const userRoute = require("./routes/userRoute");
 const blogRoute = require("./routes/blogRoute")
-// const CONFIG = require('./config/config');
+const CONFIG = require('./config/config');
 const connectToDB = require("./db/dbConfig");
 const cors = require('cors')
 
