@@ -1,27 +1,31 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
-const authRoute = require("./routes/auth")
-
-const CONFIG = require('./config/config');
+const userRoute = require("./routes/userRoute");
+const blogRoute = require("./routes/blogRoute")
+// const CONFIG = require('./config/config');
 const connectToDB = require("./db/dbConfig");
+const cors = require('cors')
+
 
 connectToDB()
-// require('dotenv').config()
 require("./middleware/authorization")
 
 
 
 const app = express()
+
+app.use(cors())
+
 app.use(logger('dev'));
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
-// app.use(auth.signup);
-app.use('/', authRoute)
 
-// app.use('/blog', auth.verifyUser, blogRoute);
+app.use('/api', userRoute)
+app.use('/api/blog', blogRoute)
+
 
 app.get('/', (req, res) => {
     res.send("Welcome to Eddy Blog")
@@ -35,6 +39,8 @@ app.use((error, req, res, next) => {
     next()
 })
 
-app.listen(CONFIG.PORT, () => {
-    console.log(`Server is listening on port ${CONFIG.PORT}`)
-});
+// app.listen(CONFIG.PORT, () => {
+//     console.log(`Server is listening on port ${CONFIG.PORT}`)
+// });
+
+module.exports = app

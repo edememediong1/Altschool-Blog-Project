@@ -1,5 +1,4 @@
 const Joi = require('joi');
-const validationMW = require('./validator')
 
 const addBlogSchema = Joi.object({
     title: Joi.string()
@@ -50,33 +49,51 @@ const addUserSchema = Joi.object({
         .required()         
 });
 
-const updateUserSchema = Joi.object({
-    first_name: Joi.string()
-        .max(255)
-        .trim(),
-    last_name: Joi.string()
-        .max(255)
-        .trim(),
-    password: Joi.string()
-        .min(7)
-        .trim(),
-    email: Joi.string()
-        .email()         
-});
 
+async function addBlogValidationMW (req, res, next) {
+    const blogPayLoad = req.body
 
-const addBlogValidationMW = validatorMW(addBlogSchema, req, res, next)
+    try {
+        await addBlogSchema.validateAsync(blogPayLoad)
+        next()
+    } catch (error) {
+        next({
+            message: error.details[0].message,
+            status: 400
+        })
+    }
+};
 
-const updateBlogValidationMW = validatorMW(updateBlogSchema, req, res, next)
+async function updateBlogValidationMW (req, res, next) {
+    const blogPayLoad = req.body
 
-const addUserValidationMW = validatorMW(addUserSchema, req, res, next)
+    try {
+        await updateBlogSchema.validateAsync(blogPayLoad)
+        next()
+    } catch (error) {
+        next({
+            message: error.details[0].message,
+            status: 400
+        })
+    }
+};
 
-const updateUserValidationMW = validatorMW(updateUserSchema, req, res, next)
+async function addUserValidationMW (req, res, next) {
+    const blogPayLoad = req.body
 
+    try {
+        await addUserSchema.validateAsync(blogPayLoad)
+        next()
+    } catch (error) {
+        next({
+            message: error.details[0].message,
+            status: 400
+        })
+    }
+};
 
 module.exports = {
     addBlogValidationMW,
     updateBlogValidationMW,
-    addUserValidationMW,
-    updateUserValidationMW
+    addUserValidationMW
 }
