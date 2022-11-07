@@ -39,8 +39,8 @@ app.use((error, req, res, next) => {
     next()
 })
 
-// app.listen(CONFIG.PORT, () => {
-//     console.log(`Server is listening on port ${CONFIG.PORT}`)
-// });
+app.listen(CONFIG.PORT, () => {
+    console.log(`Server is listening on port ${CONFIG.PORT}`)
+});
 
-module.exports = app
+// module.exports = app
