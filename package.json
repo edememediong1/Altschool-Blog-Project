@@ -9,7 +9,7 @@
     "dev": "nodemon server.js"
   },
   "keywords": [],
-  "author": "Edet Emmanuel Asuquo",
+  "author": "Emediong Bassey Edem",
   "license": "ISC",
   "devDependencies": {
     "jest": "^29.2.2",
